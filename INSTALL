@@ -1,0 +1,28 @@
+1) Create database:
+
+mysql> CREATE DATABASE `netflow`;
+mysql> GRANT ALL PRIVILEGES ON `netflow`.* TO `netflow`@`localhost` IDENTIFIED BY 'somepass';
+mysql> quit
+
+2) Create tables:
+
+mysql -unetflow -psomepass netflow < /usr/share/doc/netflow-1/netflow.sql
+
+3) Modify /etc/flow-mysql.conf:
+
+server: localhost
+username: netflow
+password: somepass
+database: netflow
+port: 3306
+network: 192.168.
+
+4) Modify /etc/sysconfig/flow-capture:
+Add flow-mysql as rotate program:
+
+OPTIONS=".... -R /usr/sbin/flow-mysql"
+
+5) Restart flow-capture
+
+service flow-capture stop
+service flow-capture start

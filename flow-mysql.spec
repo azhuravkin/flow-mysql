@@ -1,6 +1,6 @@
 Name: flow-mysql
-Version: 1
-Release: 3%{?dist}
+Version: 2
+Release: 12%{?dist}
 Group: Applications/System
 Summary: Export netflow data to mysql database.
 License: GPL
@@ -23,6 +23,7 @@ make clean all
 
 %{__mkdir_p} $RPM_BUILD_ROOT/etc
 %{__mkdir_p} $RPM_BUILD_ROOT%{_sbindir}
+%{__mkdir_p} $RPM_BUILD_ROOT/var/cache/arp
 
 install flow-mysql.conf $RPM_BUILD_ROOT/etc
 install -s -m 755 %{name} $RPM_BUILD_ROOT%{_sbindir}
@@ -32,6 +33,7 @@ install -s -m 755 %{name} $RPM_BUILD_ROOT%{_sbindir}
 %doc INSTALL netflow.sql
 %config(noreplace) %attr(0600,root,root) /etc/flow-mysql.conf
 %{_sbindir}/%{name}
+/var/cache/arp
 
 %clean
 [ $RPM_BUILD_ROOT != "/" ] && rm -rf $RPM_BUILD_ROOT
